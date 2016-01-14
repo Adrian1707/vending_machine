@@ -19,7 +19,7 @@ describe 'VendingMachine' do
       expect(vending_machine.current_amount).to eq(2.00)
     end
 
-    it 'should accept only valid coins worth more than 10p and return coin to customer' do
+    it 'should accept only valid coins and return invalid coin to customer' do
         expect{vending_machine.accept_coins(0.02)}.to raise_error "This is not a valid coin"
         expect(vending_machine.coin_return).to eq(0.02)
     end

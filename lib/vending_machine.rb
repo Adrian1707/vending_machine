@@ -14,9 +14,7 @@ class VendingMachine
   end
 
   def accept_coins(coin)
-    if coin_invalid?(coin)
-      @coin_return = coin
-    end
+    return_coin_if_invalid(coin)
     raise "This is not a valid coin" if coin_invalid?(coin)
     increase_current_amount(coin)
   end
@@ -36,6 +34,12 @@ class VendingMachine
 
   def coin_invalid?(coin)
     @valid_coins.include?(coin) ? false : true
+  end
+
+  def return_coin_if_invalid(coin)
+    if coin_invalid?(coin)
+      @coin_return = coin
+    end
   end
 
   def increase_current_amount(coin)

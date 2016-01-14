@@ -1,6 +1,5 @@
 require 'spec_helper'
 require 'vending_machine'
-require 'product'
 
 describe 'VendingMachine' do
   subject(:vending_machine) { VendingMachine.new }
@@ -8,9 +7,9 @@ describe 'VendingMachine' do
 
   before(:each) do
     allow(product).to receive(:items).and_return([
-      { item: :coke, price: 1.00},
-      { item: :chips, price: 0.50},
-      { item: :candy, price: 0.65}])
+      { coke: 1.00},
+      { chips: 0.50},
+      { camdy: 0.65}])
   end
 
   describe '#accept_coins' do
@@ -45,6 +44,12 @@ describe 'VendingMachine' do
       vending_machine.add_items(product)
       vending_machine.accept_coins(1.00)
       expect{vending_machine.select_product(:fanta)}.to raise_error "This product isn't in the machine"
+    end
+
+    it 'should raise error if the current amount is less then the value of the item selected' do
+      vending_machine.add_items(product)
+      vending_machine.accept_coins(0.20)
+      expect{vending_machine.select_product(:coke)}.to raise_error "You need to add more money"
     end
 
   end

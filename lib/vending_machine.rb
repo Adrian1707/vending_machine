@@ -27,6 +27,11 @@ class VendingMachine
     decrease_current_amount(item)
   end
 
+  def release_change
+    @change = @current_amount
+    @current_amount = 0 
+  end
+
   private
 
   def coin_invalid?(coin)

@@ -60,6 +60,17 @@ describe 'VendingMachine' do
       expect(vending_machine.current_amount).to eq(0.35)
 
     end
+  end
+
+  describe '#release_change' do
+
+    it 'should release the left over money the customer has not spent' do
+      vending_machine.add_items(product)
+      vending_machine.accept_coins(1.00)
+      vending_machine.select_product(:candy)
+      vending_machine.release_change
+      expect(vending_machine.current_amount).to eq(0)
+    end
 
   end
 

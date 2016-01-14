@@ -4,6 +4,14 @@ require 'product'
 
 describe 'VendingMachine' do
   subject(:vending_machine) { VendingMachine.new }
+  let(:product) { double(:product)}
+
+  before(:each) do
+    allow(product).to receive(:items).and_return([
+      { item: :coke, price: 1.00},
+      { item: :chips, price: 0.50},
+      { item: :candy, price: 0.65}])
+  end
 
   describe '#accept_coins' do
 
@@ -26,7 +34,7 @@ describe 'VendingMachine' do
   describe '#select_product' do
 
     it 'should dispence the product if the correct amount is inserted' do
-      vending_machine.add_items(Product.new)
+      vending_machine.add_items(product)
       vending_machine.accept_coins(1.00)
       vending_machine.select_product(:coke)
       vending_machine.select_product(:chips)
@@ -34,7 +42,7 @@ describe 'VendingMachine' do
     end
 
     it 'should raise error if selected product is not in machine' do
-      vending_machine.add_items(Product.new)
+      vending_machine.add_items(product)
       vending_machine.accept_coins(1.00)
       expect{vending_machine.select_product(:fanta)}.to raise_error "This product isn't in the machine"
     end

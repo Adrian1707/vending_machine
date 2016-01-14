@@ -70,6 +70,7 @@ describe 'VendingMachine' do
       vending_machine.select_product(:candy)
       vending_machine.release_change
       expect(vending_machine.current_amount).to eq(0)
+      expect(vending_machine.coin_return).to eq(0.35)
     end
 
   end

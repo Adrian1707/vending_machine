@@ -28,8 +28,8 @@ class VendingMachine
   end
 
   def release_change
-    @change = @current_amount
-    @current_amount = 0 
+    @coin_return = @current_amount
+    @current_amount = 0
   end
 
   private

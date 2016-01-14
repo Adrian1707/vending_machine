@@ -9,7 +9,7 @@ describe 'VendingMachine' do
     allow(product).to receive(:items).and_return([
       { coke: 1.00},
       { chips: 0.50},
-      { camdy: 0.65}])
+      { candy: 0.65}])
   end
 
   describe '#accept_coins' do
@@ -35,6 +35,7 @@ describe 'VendingMachine' do
     it 'should dispence the product if the correct amount is inserted' do
       vending_machine.add_items(product)
       vending_machine.accept_coins(1.00)
+      vending_machine.accept_coins(0.50)
       vending_machine.select_product(:coke)
       vending_machine.select_product(:chips)
       expect(vending_machine.dispenced_products).to eq([:coke, :chips])
@@ -50,6 +51,14 @@ describe 'VendingMachine' do
       vending_machine.add_items(product)
       vending_machine.accept_coins(0.20)
       expect{vending_machine.select_product(:coke)}.to raise_error "You need to add more money"
+    end
+
+    it 'should decrease the current amount when the user selects an item' do
+      vending_machine.add_items(product)
+      vending_machine.accept_coins(1.00)
+      vending_machine.select_product(:candy)
+      expect(vending_machine.current_amount).to eq(0.35)
+
     end
 
   end

@@ -18,19 +18,32 @@ class VendingMachine
       @coin_return = coin
     end
     raise "This is not a valid coin" if coin_invalid?(coin)
-    @current_amount+=coin
+    increase_current_amount(coin)
   end
 
   def select_product(item)
-    raise "This product isn't in the machine" if product_in_machine?(item) == false
-    raise "You need to add more money" if @current_amount < price_of_item(item)
+    raise_errors(item)
     @dispenced_products << item
+    decrease_current_amount(item)
   end
 
   private
 
   def coin_invalid?(coin)
     @valid_coins.include?(coin) ? false : true
+  end
+
+  def increase_current_amount(coin)
+    @current_amount+=coin
+  end
+
+  def decrease_current_amount(item)
+    @current_amount-=price_of_item(item)
+  end
+
+  def raise_errors(item)
+    raise "This product isn't in the machine" if product_in_machine?(item) == false
+    raise "You need to add more money" if @current_amount < price_of_item(item)
   end
 
   def price_of_item(item)

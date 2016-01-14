@@ -5,7 +5,7 @@ class Product
   PRODUCTS = [
     { coke: 1.00},
     { chips: 0.50},
-    { camdy: 0.65}]
+    { candy: 0.65}]
 
     def initialize
       @items = PRODUCTS
